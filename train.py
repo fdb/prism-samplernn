@@ -15,7 +15,7 @@ os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'
 import tensorflow as tf
 tf.get_logger().setLevel('ERROR')
 tf.autograph.set_verbosity(3)
-
+print(tf.config.experimental.list_physical_devices('GPU'))
 import numpy as np
 import librosa
 from natsort import natsorted
