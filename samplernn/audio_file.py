@@ -43,7 +43,7 @@ def load_audio(directory, batch_size):
     for filename in randomize_files(files):
         (audio, _) = librosa.load(filename, sr=None, mono=True)
         audio = audio.reshape(-1, 1)
-        print("Loading corpus entry {}".format(filename))
+        # print("Loading corpus entry {}".format(filename))
         yield audio
 
 def write_wav(path, audio, sample_rate):
