@@ -79,13 +79,18 @@ In the Docker container, start generating output files:
 python generate.py --output_path generated/birds/ --checkpoint_path logdir/birds/12.12.2020_14.08.01/model.ckpt-60 --config_file default.config.json --num_seqs 5 --dur 5 --sample_rate 16000 --temperature 1.0
 ```
 
-
 Note the `checkpoint_path`: this should point to the `model.ckpt-60.index`, without the `.index` at the end.
 
 If you have a seed file (starting file) you can supply that as well:
 
 ```shell
 python generate.py --output_path generated/techno_samples/ --checkpoint_path logdir/yourproject/10.12.2020_11.02.35/model.ckpt-60 --config_file default.config.json --num_seqs 5 --dur 5 --sample_rate 16000 --seed chunks/techno/classics-90_chunk_1  --temperature 1.0
+```
+
+**Make sure the output directory exists:**
+
+```shell
+mkdir -p generated/birds
 ```
 
 Experiment with the temperature parameter to get different results.
