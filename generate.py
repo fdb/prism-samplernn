@@ -185,7 +185,15 @@ def generate(path, ckpt_path, config, num_seqs=NUM_SEQS, dur=OUTPUT_DUR, sample_
     # Set seed if provided.
     if seed is not None:
         seed_audio = load_seed_audio(seed, seed_offset, model.big_frame_size)
-        init_samples[:, :model.big_frame_size, :] = quantize(seed_audio, q_type, q_levels)
+        q_audio = quantize(seed_audio, q_type, q_levels)
+        print('orig shape', init_samples.shape, 'q shape', q_audio.shape)
+        np_quantized = quantize(seed_audio, q_type, q_levels).numpy()
+        np_init_samples = init_samples.numpy()
+        np_init_samples[:, :model.big_frame_size, :] = np_quantized # (seed_audio, q_type, q_levels)
+        init_samples = tf.convert_to_tensor(np_init_samples)
+#        quantize(seed_audio, q_type, q_levels)
+        #init_samples[:, :model.big_frame_size, :] = quantize(seed_audio, q_type, q_levels)
+        #init_samples = quantize(seed_audio, q_type, q_levels).reshape((1, model.big_frame_size, 1))
     samples.append(init_samples)
     print_progress_every = NUM_FRAMES_TO_PRINT * model.big_frame_size
     start_time = time.time()
